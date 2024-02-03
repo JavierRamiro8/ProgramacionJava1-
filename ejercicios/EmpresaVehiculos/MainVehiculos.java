@@ -19,10 +19,10 @@ public class MainVehiculos {
         if (comprobador.matches()) {
             Vehiculos bmwCoche = new Coches("BMW", "M3", matricula, 200, 4,"Delantera", 50);
             System.out.println(bmwCoche.toString());
-            Vehiculos harleyDavinson = new Motos("Harley Davinson", "Nightster", matricula, 200, 2,"Casco");
-            System.out.println(harleyDavinson.toString());
             Vehiculos scannia = new Camiones("Scannia", "B900Alfa", matricula, 100, 8,800,"Butano","4x4");
             System.out.println(scannia.toString());
+            Vehiculos harleyDavinson = new Motos("Harley Davinson", "Nightster", matricula, 200, 2,"Casco");
+            System.out.println(harleyDavinson.toString());
         } else {
             System.out.println("no se ha podido añadir la matricula introducida ya que la matricula es incorrecta");
         }
