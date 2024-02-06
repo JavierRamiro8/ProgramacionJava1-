@@ -15,18 +15,12 @@ public class ComprobadorCuadradoMagico {
             if(tamanioCuadradoSegundoArray!=cuadradoMagico.length){
                 return "Ni siquiera es un cuadrado :(";
             }
-        for(int i=0;i<cuadradoMagico.length;i++){
             for(int o=0;o<cuadradoMagico.length;o++){
-                contadorDiagonalID+=cuadradoMagico[i][o];
-                i++;
+                contadorDiagonalDI+=cuadradoMagico[o][o];
             }
-        }
-        for(int i=cuadradoMagico.length-1;i>=0;i--){
-            for(int o=cuadradoMagico.length-1;o>=0;o--){
-                contadorDiagonalDI+=cuadradoMagico[i][o];
-                i--;
-            }
-        }
+            for(int o=0 ,i=cuadradoMagico.length-1;o<cuadradoMagico.length;o++,i--){
+                    contadorDiagonalID+=cuadradoMagico[i][o];
+                } 
         for(int i=0;i<cuadradoMagico.length;i++){
             for(int o=0;o<cuadradoMagico.length;o++){
                 contadorFilas+=cuadradoMagico[i][o];
