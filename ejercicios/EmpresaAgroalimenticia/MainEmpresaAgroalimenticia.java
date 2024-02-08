@@ -1,8 +1,16 @@
 package EmpresaAgroalimenticia;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import EmpresaAgroalimenticia.src.ProductosCongeladosAgua;
 import EmpresaAgroalimenticia.src.ProductosCongeladosAire;
 import EmpresaAgroalimenticia.src.ProductosCongeladosNitrogeno;
@@ -20,6 +28,7 @@ public class MainEmpresaAgroalimenticia {
     private static String fechaEnvasado;
     private static String paisOrigen;
     private static int temperatura;
+    private static final String RUTAARCHIVO="./ejercicios/EmpresaAgroalimenticia/guardadoProductos.txt";
 
     public static void main(String[] args) {
         boolean menuInteractivo = true;
@@ -29,6 +38,33 @@ public class MainEmpresaAgroalimenticia {
             } else {
                 break;
             }
+        }
+        System.out.println("Quieres Guardar los datos que has introducido?");
+        String respuesta=in.nextLine();
+        if(respuesta.equals("si")){
+            try (BufferedWriter bufferEscritor = new BufferedWriter(new FileWriter(RUTAARCHIVO))) {
+                bufferEscritor.write("Productos Frescos\n");
+                for(ProductosFrescos productosIterador : productosFrescosArray){
+                    bufferEscritor.write(productosIterador+"\n");
+                }
+               bufferEscritor.write("Productos Refrigerados\n");
+                for(ProductosRefrigerados productosRefrigeradosIterador : productosRefrigeradosArray){
+                    bufferEscritor.write(productosRefrigeradosIterador+"\n");
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try (BufferedReader bufferedLector = new BufferedReader(new FileReader(RUTAARCHIVO))) {
+                String linea;
+                while ((linea=bufferedLector.readLine())!=null) {
+                    System.out.println(linea);
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            
         }
     }
 
@@ -51,6 +87,10 @@ public class MainEmpresaAgroalimenticia {
                 in.nextLine();
                 System.out.println("introduce la fecha de envasado");
                 fechaEnvasado = in.nextLine();
+                while(!comprobadorFecha(fechaEnvasado)){
+                    System.out.println("Has introducido mal la fecha de envasado, vuelve a introducirla");
+                    fechaEnvasado=in.nextLine();
+                }
                 System.out.println("introduce el pais de origen del producto");
                 paisOrigen = in.nextLine();
                 ProductosFrescos productoFresco = new ProductosFrescos(fechaCaducidad, numeroLote, fechaEnvasado,
@@ -74,6 +114,10 @@ public class MainEmpresaAgroalimenticia {
                 in.nextLine();
                 System.out.println("introduce la fecha de envasado");
                 fechaEnvasado = in.nextLine();
+                while(!comprobadorFecha(fechaEnvasado)){
+                    System.out.println("Has introducido mal la fecha de envasado, vuelve a introducirla");
+                    fechaEnvasado=in.nextLine();
+                }
                 System.out.println("introduce la temperatura de mantenimiento recomendado");
                 temperatura = in.nextInt();
                 in.nextLine();
@@ -236,6 +280,16 @@ public class MainEmpresaAgroalimenticia {
         while (iteradorProductosFrescos.hasNext()) {
             ProductosFrescos productosFrescos = iteradorProductosFrescos.next();
             System.out.println(productosFrescos);
+        }
+    }
+    private static boolean comprobadorFecha(String fecha){
+        String patronString="([0-3]{1}[0-9]{1}[/]{1}[0-1]{1}[0-9]{1}[/]{1}[0-9]{4})";
+        Pattern patron=Pattern.compile(patronString);
+        Matcher emparejador=patron.matcher(fecha);
+        if(emparejador.matches()){
+            return true;
+        }else{
+            return false;
         }
     }
 }

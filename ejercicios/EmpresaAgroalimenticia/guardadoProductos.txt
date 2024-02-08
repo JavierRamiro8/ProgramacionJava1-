@@ -1,0 +1,4 @@
+Productos Frescos
+Productos [fechaCaducidad=10/07/2099, numeroLote=1099677 fechaEnvasado=10/08=2024, paisOrigen=ES]
+Productos Refrigerados
+Productos [fechaCaducidad=10/07/2024, numeroLote=124380 codOrganismo=78, fechaEnvasado=10/07/2023, temperaturaMantenimiento=9, paisOrigen=ES]
